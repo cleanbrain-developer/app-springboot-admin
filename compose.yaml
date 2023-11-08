@@ -1,0 +1,42 @@
+version: '3'
+services:
+  mariadb:
+    image: bitnami/mariadb:10.2
+    environment:
+      - MARIADB_ROOT_PASSWORD=cleanbrain!1234
+      - MARIADB_EXTRA_FLAGS= --lower-case-table-names=1
+        --max_connections=600
+        --collation-server=utf8mb4_unicode_ci
+        --character_set_server=utf8mb4
+        --connect_timeout=20
+        --wait_timeout=3600
+        --max_allowed_packet=64M
+        --thread_cache_size=128
+        --sort_buffer_size=8M
+        --bulk_insert_buffer_size=64M
+        --tmp_table_size=64M
+        --max_heap_table_size=64M
+        --query_cache_size=16M
+        --slow_query_log=ON
+        --long_query_time=5
+        --general_log=ON
+        --default_storage_engine=InnoDB
+        --innodb_buffer_pool_size=4096M
+        --innodb_log_buffer_size=16M
+        --innodb_file_per_table=ON
+        --innodb_open_files=4000
+        --innodb_io_capacity=5000
+        --innodb_buffer_pool_instances=64
+        --innodb_large_prefix=""
+        --skip-host-cache
+        --skip-name-resolve
+      - TZ=Asia/Seoul
+    volumes:
+      - db_data:/opt/bitnami/mariadb
+      - ./sql-script/create.sql:/docker-entrypoint-initdb.d/create.sql
+      - ./sql-script/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "3306:3306"
+    restart: always
+volumes:
+  db_data:
