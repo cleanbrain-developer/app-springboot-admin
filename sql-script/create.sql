@@ -6,11 +6,11 @@ grant all privileges on adminapp.* to cleanbrain@'%';
 
 flush privileges;
 
-use adminapp;
-
-create table user (
-    id              varchar(20) primary key,
-    name            varchar(64) not null,
-    create_date     datetime,
-    update_date     datetime
-);
+-- use adminapp;
+--
+-- create table user (
+--     id              varchar(20) primary key,
+--     name            varchar(64) not null,
+--     create_date     datetime,
+--     update_date     datetime
+-- );
